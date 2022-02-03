@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@page import="model.Pessoa"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Sucesso</title>
   <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="sucesso.css">
@@ -15,14 +16,17 @@
              <i class="checkmark">✓</i>
         </div>
         
-        <h1>Successo!</h1>
-        <p>Cadastro realizado<</p>
+        <%
+		Pessoa pessoa = (Pessoa) request.getAttribute("pessoa");
+		%>
         
-        ${pessoa.sexo} 
-        ${pessoa.nome} 
-        ${pessoa.sobrenome} 
-    	<% out.write("Obrigado por realizar o cadastro em nosso site.");
-    	%>
+        <h1>Successo!</h1>
+        <p>Cadastro realizado</p>
+        
+        <h2>${resultado} ${pessoa.nome} ${pessoa.sobrenome} ${dia}</h2>
+        <h2>${mensagem}</h2> 
+          
+    	<% out.write("Obrigado por realizar o cadastro em nosso site.");%>
      
         
     </div>

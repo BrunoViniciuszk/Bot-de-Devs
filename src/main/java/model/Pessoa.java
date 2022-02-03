@@ -1,11 +1,20 @@
-package servlet;
+package model;
 
 public class Pessoa {
 	private String nome;
 	private String sobrenome;
 	private String email;
+	
+	public String getDia() {
+		return dia;
+	}
+	public void setDia(String dia) {
+		this.dia = dia;
+	}
 	private String genero;
 	private int numero;
+	private String dia;
+	
 	public String getNome() {
 		return nome;
 	}

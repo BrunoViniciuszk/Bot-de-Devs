@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Pessoa;
+
 @WebServlet("/cadastro")
 public class ViagensServlet extends HttpServlet {
 	@Override
@@ -19,7 +23,7 @@ public class ViagensServlet extends HttpServlet {
 		String nome = req.getParameter("nome");
 		String sobrenome = req.getParameter("sobrenome");
 		String email = req.getParameter("email");
-		String sexo = req.getParameter("genero");
+		String genero = req.getParameter("genero");
 		int numero = Integer.parseInt(req.getParameter("numero"));
 		
 		
@@ -28,45 +32,55 @@ public class ViagensServlet extends HttpServlet {
 		pessoa.setNome(nome);
 		pessoa.setSobrenome(sobrenome);
 		pessoa.setEmail(email);
-		pessoa.setGenero(sexo);
+		pessoa.setGenero(genero);
 		pessoa.setNumero(numero);
 		
+		String resultado = null;
 		
-		switch (sexo) {
+		switch (genero) {
 		case "masc":
-				sexo = "Sr.";
+				resultado = "Sr.";
 			break;
 		case "fem":
-				sexo = "Sra.";
+				resultado = "Sra.";
 			break;
-
 		default:
 			break;
 		}
 		
 		
 		
-		/*DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH");
-		
-		int hora = Integer.parseInt(fmt.format(LocalDate.now()));
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH");
+		System.out.println(LocalDateTime.now());
+		int tempo = Integer.parseInt(fmt.format(LocalDateTime.now()));
 		
 		String dia;
-		if(hora < 12) {
+		if(tempo < 12) {
 			dia = "Bom dia";
-		} else if(hora < 18) {
+		} else if(tempo < 18) {
 			dia = "Boa tarde";
 		} else {
 			dia = "Boa noite";
 		}
 		
+		String mensagem = null;
+		if(numero < 10) {
+			mensagem = "Hoje é seu dia de sorte, parabéns!!";
+		} else if(numero < 20) {
+			mensagem = "Hoje não é seu dia de sorte, que triste";
+		} else if (numero < 500) {
+			mensagem = "OK, obrigado por testar. TCHAU!!";
+		}
 		
-		req.setAttribute("dia", dia);*/
-		req.setAttribute("nome", nome);
-		req.setAttribute("sobrenome", sobrenome);
+		req.setAttribute("mensagem", mensagem);
+		req.setAttribute("dia", dia);
+		req.setAttribute("resultado", resultado);
+		/*req.setAttribute("nome", nome);
+		req.setAttribute("sobrenome", sobrenome);  
 		req.setAttribute("email", email);
 		req.setAttribute("sexo", sexo);
+		req.setAttribute("numero", numero);*/
 		req.setAttribute("pessoa", pessoa);
-		req.setAttribute("numero", numero);
 		req.getRequestDispatcher("/resultado.jsp").forward(req, resp);
 		
 	}
